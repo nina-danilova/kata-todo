@@ -30,6 +30,27 @@ export default class App extends Component {
     ]
   };
 
+  createTodoItem = (label) => {
+    return {
+      id: this.state.taskData.length + 1,
+      type: "active",
+      description: label,
+      created: new Date().getTime()
+    }
+  }
+
+  addItem = (text) => {
+    const newItem = this.createTodoItem(text);
+
+    this.setState(({taskData}) => {
+      const newData = [...taskData, newItem];
+
+      return {
+        taskData: newData
+      }
+    });
+  };
+
   markTaskDone = (id) => {
     this.setState(({taskData}) => {
       const index = taskData.findIndex((el) => el.id === id);
@@ -61,16 +82,29 @@ export default class App extends Component {
     });
   };
 
+  deleteAllTasks = () => {
+    this.setState(() => {
+      const emptyData = [];
+
+      return {
+        taskData: emptyData
+      }
+    });
+  };
+
   render() {
     return (
-      <section className="todo-app">
+      <section className="app">
         <header className="header">
           <h1>todos</h1>
-          <NewTaskForm />
+          <NewTaskForm onItemAdded={this.addItem} />
         </header>
         <section className="main">
           <TaskList tasks={this.state.taskData} onDoneTask={this.markTaskDone} onDeleteTask={this.deleteTask}/>
-          <Footer />
+          <Footer 
+            onDeleteAllTasks={this.deleteAllTasks}
+            tasks={this.state.taskData}
+           />
         </section>
       </section>
     );

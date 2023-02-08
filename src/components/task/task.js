@@ -9,16 +9,16 @@ export default class Task extends Component {
     const {description, created, onDoneTask, onDeleteTask, type} = this.props;
     
     const timeDistance = formatDistance(new Date(created), new Date());
-/*
-    let checked = "false";
+
+    let checked = undefined;
     if (type === "completed") {
-      checked = "true";
-    }*/
+      checked = true;
+    }
 
     return (
       <>
         <div className="view">
-          <input className="toggle" type="checkbox" onClick={onDoneTask} /*checked={checked}*/ />
+          <input className="toggle" type="checkbox" onClick={onDoneTask} defaultChecked={checked}/>
           <label>
             <span className="description">{description}</span>
             <span className="created">{timeDistance}</span>

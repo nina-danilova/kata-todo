@@ -45,7 +45,7 @@ body {
 	display: none;
 }
 
-.todo-app {
+.app {
 	background: #fff;
 	margin: 130px 0 40px 0;
 	position: relative;
@@ -53,25 +53,25 @@ body {
 	            0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
-.todo-app input::-webkit-input-placeholder {
+.app input::-webkit-input-placeholder {
 	font-style: italic;
 	font-weight: 300;
 	color: rgba(0, 0, 0, 0.4);
 }
 
-.todo-app input::-moz-placeholder {
+.app input::-moz-placeholder {
 	font-style: italic;
 	font-weight: 300;
 	color: rgba(0, 0, 0, 0.4);
 }
 
-.todo-app input::input-placeholder {
+.app input::input-placeholder {
 	font-style: italic;
 	font-weight: 300;
 	color: rgba(0, 0, 0, 0.4);
 }
 
-.todo-app h1 {
+.app h1 {
 	position: absolute;
 	top: -140px;
 	width: 100%;

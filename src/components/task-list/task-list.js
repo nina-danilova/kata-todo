@@ -19,7 +19,7 @@ export default class TaskList extends Component {
     });
     
     return (
-      <ul className="todo-list">
+      <ul className="task-list">
         {taskList}
       </ul>
     );
