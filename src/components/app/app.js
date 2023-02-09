@@ -27,7 +27,8 @@ export default class App extends Component {
         description: "Active task",
         created: new Date(1989, 6, 10).getTime()
       }
-    ]
+    ],
+    filter: "all"
   };
 
   createTodoItem = (label) => {
@@ -92,7 +93,27 @@ export default class App extends Component {
     });
   };
 
+  onFilterChange = (filter) => {
+    this.setState({filter});
+  }
+
+  filter = (tasks, filter) => {
+    switch(filter) {
+      case "all":
+        return tasks;
+      case "active":
+        return tasks.filter((task) => task.type !== "completed");
+      case "completed":
+        return tasks.filter((task) => task.type === "completed");
+      default:
+        return tasks;
+    }
+  } 
+
   render() {
+    const {taskData, filter} = this.state;
+    const visibleTasks = this.filter(taskData, filter);
+
     return (
       <section className="app">
         <header className="header">
@@ -100,10 +121,15 @@ export default class App extends Component {
           <NewTaskForm onItemAdded={this.addItem} />
         </header>
         <section className="main">
-          <TaskList tasks={this.state.taskData} onDoneTask={this.markTaskDone} onDeleteTask={this.deleteTask}/>
+          <TaskList 
+            visibleTasks={visibleTasks}
+            onDoneTask={this.markTaskDone} 
+            onDeleteTask={this.deleteTask}/>
           <Footer 
             onDeleteAllTasks={this.deleteAllTasks}
-            tasks={this.state.taskData}
+            tasks={taskData}
+            filter={filter}
+            onFilterChange={this.onFilterChange}
            />
         </section>
       </section>

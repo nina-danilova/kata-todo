@@ -7,13 +7,18 @@ import "./task-list.css";
 export default class TaskList extends Component {
 
   render() {
-    const {tasks, onDoneTask, onDeleteTask} = this.props;
-    const taskList = tasks.map((task) => {
+    const {onDoneTask, onDeleteTask, visibleTasks} = this.props;
+    const taskList = visibleTasks.map((task) => {
       const {id, type, ...props} = task;
   
       return (
         <li className={type} key={id}>
-          <Task {...props} onDoneTask={() => onDoneTask(id)} onDeleteTask={() => onDeleteTask(id)} type={type} />
+          <Task 
+            {...props} 
+            onDoneTask={() => onDoneTask(id)} 
+            onDeleteTask={() => onDeleteTask(id)} 
+            type={type} 
+          />
         </li>
       );
     });

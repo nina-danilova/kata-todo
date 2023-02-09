@@ -24,7 +24,9 @@ export default class Task extends Component {
             <span className="created">{timeDistance}</span>
           </label>
           <button className="icon icon-edit"></button>
-          <button className="icon icon-destroy" onClick={onDeleteTask}></button>
+          <button 
+            className="icon icon-destroy" 
+            onClick={onDeleteTask}></button>
         </div>
         <input type="text" className="edit" placeholder="Editing task" />
       </>

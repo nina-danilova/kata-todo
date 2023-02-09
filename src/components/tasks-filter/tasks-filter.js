@@ -4,21 +4,41 @@ import "./tasks-filter.css";
 
 export default class TasksFilter extends Component {
 
+  filters = [
+    {
+      name: "all", 
+      label: "All"
+    },
+    {
+      name: "active", 
+      label: "Active"
+    },
+    {
+      name: "completed", 
+      label: "Completed"
+    },
+  ]
 
   render() {
-    const {tasks} = this.props;
+    const {filter, onFilterChange} = this.props;
+
+    const filterTabs = this.filters.map(({name, label}) => {
+      const isSelected = filter === name;  /* вернет true для подходящей кнопки */
+      const selectedClass = isSelected ? " selected" : "";
+
+      return (
+        <li key={name}>
+          <button 
+            className={selectedClass}
+            onClick={() => onFilterChange(name)}>
+            {label}</button>
+        </li>
+      )
+    });
 
     return (
       <ul className="tasks-filter">
-        <li>
-          <button className="selected">All</button>
-        </li>
-        <li>
-          <button>Active</button>
-        </li>
-        <li>
-          <button>Completed</button>
-        </li>
+        {filterTabs}
       </ul>
     );
   };
