@@ -1,8 +1,18 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 import "./tasks-filter.css";
 
 export default class TasksFilter extends Component {
+
+  static defaultProps = {
+    filter: "active",
+  };
+
+  static propTypes = {
+    filter: PropTypes.string, 
+    onFilterChange: PropTypes.func.isRequired
+  };
 
   filters = [
     {
@@ -17,7 +27,7 @@ export default class TasksFilter extends Component {
       name: "completed", 
       label: "Completed"
     },
-  ]
+  ];
 
   render() {
     const {filter, onFilterChange} = this.props;

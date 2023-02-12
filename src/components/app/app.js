@@ -28,12 +28,26 @@ export default class App extends Component {
         created: new Date(1989, 6, 10).getTime()
       }
     ],
+    idCounter: 4,
     filter: "all"
   };
 
+  increaseIdCounter = () => {
+    this.setState(() => {
+      let newIdCounter = this.state.idCounter;
+      newIdCounter++;
+
+      return {
+        idCounter: newIdCounter
+      };
+    });
+  };
+
   createTodoItem = (label) => {
+    this.increaseIdCounter();
+
     return {
-      id: this.state.taskData.length + 1,
+      id: this.state.idCounter,
       type: "active",
       description: label,
       created: new Date().getTime()
@@ -117,7 +131,7 @@ export default class App extends Component {
     return (
       <section className="app">
         <header className="header">
-          <h1>todos</h1>
+          <h1>Todo list</h1>
           <NewTaskForm onItemAdded={this.addItem} />
         </header>
         <section className="main">
