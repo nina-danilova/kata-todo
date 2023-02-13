@@ -5,18 +5,12 @@ import PropTypes from 'prop-types';
 import './task.css';
 
 export default class Task extends Component {
-  static defaultProps = {
-    description: 'Описание задачи',
-    created: new Date(null),
-    type: 'completed',
-  };
-
   static propTypes = {
-    description: PropTypes.string,
-    created: PropTypes.number,
+    description: PropTypes.string.isRequired,
+    created: PropTypes.number.isRequired,
     onDoneTask: PropTypes.func.isRequired,
     onDeleteTask: PropTypes.func.isRequired,
-    type: PropTypes.string,
+    type: PropTypes.string.isRequired
   };
 
   render() {

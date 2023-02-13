@@ -7,15 +7,8 @@ import './footer.css';
 
 export default class Footer extends Component {
   static defaultProps = {
-    tasks: [
-      {
-        id: 2,
-        type: 'completed',
-        description: 'Example todo',
-        created: new Date(1995, 6, 2).getTime(),
-      },
-    ],
-    filter: 'completed',
+    tasks: [],
+    filter: 'all',
   };
 
   static propTypes = {

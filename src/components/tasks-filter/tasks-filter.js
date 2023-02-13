@@ -4,12 +4,8 @@ import PropTypes from 'prop-types';
 import './tasks-filter.css';
 
 export default class TasksFilter extends Component {
-  static defaultProps = {
-    filter: 'active',
-  };
-
   static propTypes = {
-    filter: PropTypes.string,
+    filter: PropTypes.string.isRequired,
     onFilterChange: PropTypes.func.isRequired,
   };
 

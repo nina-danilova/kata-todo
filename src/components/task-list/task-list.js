@@ -11,8 +11,8 @@ export default class TaskList extends Component {
       {
         id: 1,
         type: 'active',
-        description: 'Example todo',
-        created: new Date(1995, 6, 2).getTime(),
+        description: 'Создайте задачу, отредакировав этот текст',
+        created: new Date(null).getTime(),
       },
     ],
   };
