@@ -6,37 +6,31 @@ import TasksFilter from '../tasks-filter';
 import './footer.css';
 
 export default class Footer extends Component {
-  static defaultProps = {
-    tasks: [],
-    filter: 'all',
-  };
-
-  static propTypes = {
-    onDeleteAllTasks: PropTypes.func.isRequired,
-    tasks: PropTypes.arrayOf(PropTypes.object),
-    filter: PropTypes.string,
-    onFilterChange: PropTypes.func.isRequired,
-  };
-
   render() {
-    const {
-      onDeleteAllTasks, tasks, filter, onFilterChange,
-    } = this.props;
+    const { onDeleteAllTasks, tasks, filter, onFilterChange } = this.props;
 
     const todoCount = tasks.filter((task) => task.type !== 'completed').length;
 
     return (
       <footer className="footer">
-        <span className="todo-count">
-          {todoCount}
-          {' '}
-          items left
-        </span>
+        <span className="todo-count">{todoCount} items left</span>
         <TasksFilter filter={filter} onFilterChange={onFilterChange} />
-        <button className="clear-completed" onClick={onDeleteAllTasks}>
+        <button className="clear-completed" type="button" onClick={onDeleteAllTasks}>
           Clear completed
         </button>
       </footer>
     );
   }
 }
+
+Footer.defaultProps = {
+  tasks: [],
+  filter: 'all',
+};
+
+Footer.propTypes = {
+  onDeleteAllTasks: PropTypes.func.isRequired,
+  tasks: PropTypes.arrayOf(PropTypes.object),
+  filter: PropTypes.string,
+  onFilterChange: PropTypes.func.isRequired,
+};

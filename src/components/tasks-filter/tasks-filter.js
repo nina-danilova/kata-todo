@@ -4,11 +4,6 @@ import PropTypes from 'prop-types';
 import './tasks-filter.css';
 
 export default class TasksFilter extends Component {
-  static propTypes = {
-    filter: PropTypes.string.isRequired,
-    onFilterChange: PropTypes.func.isRequired,
-  };
-
   filters = [
     {
       name: 'all',
@@ -33,10 +28,7 @@ export default class TasksFilter extends Component {
 
       return (
         <li key={name}>
-          <button
-            className={selectedClass}
-            onClick={() => onFilterChange(name)}
-          >
+          <button className={selectedClass} type="button" onClick={() => onFilterChange(name)}>
             {label}
           </button>
         </li>
@@ -46,3 +38,8 @@ export default class TasksFilter extends Component {
     return <ul className="tasks-filter">{filterTabs}</ul>;
   }
 }
+
+TasksFilter.propTypes = {
+  filter: PropTypes.string.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
+};

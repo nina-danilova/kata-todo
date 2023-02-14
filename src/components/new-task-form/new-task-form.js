@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import './new-task-form.css';
 
 export default class NewTaskForm extends Component {
-  static propTypes = {
-    onItemAdded: PropTypes.func.isRequired,
-  };
-
-  state = {
-    label: '',
-  };
+  constructor() {
+    super();
+    this.state = {
+      label: '',
+    };
+  }
 
   onLabelChange = (e) => {
     this.setState({
@@ -19,10 +18,13 @@ export default class NewTaskForm extends Component {
   };
 
   onSubmit = (e) => {
+    const { label } = this.state;
+    const { onItemAdded } = this.props;
+
     e.preventDefault();
 
-    if (this.state.label !== '') {
-      this.props.onItemAdded(this.state.label);
+    if (label !== '') {
+      onItemAdded(label);
     }
 
     this.setState({
@@ -31,17 +33,22 @@ export default class NewTaskForm extends Component {
   };
 
   render() {
+    const { label } = this.state;
+
     return (
       <form className="new-task-form" onSubmit={this.onSubmit}>
         <input
           type="text"
           className="new-todo"
           placeholder="What needs to be done?"
-          value={this.state.label}
+          value={label}
           onChange={this.onLabelChange}
-          autoFocus
         />
       </form>
     );
   }
 }
+
+NewTaskForm.propTypes = {
+  onItemAdded: PropTypes.func.isRequired,
+};

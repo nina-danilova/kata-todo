@@ -7,35 +7,39 @@ import TaskList from '../task-list';
 import './app.css';
 
 export default class App extends Component {
-  state = {
-    taskData: [
-      {
-        id: 1,
-        type: 'completed',
-        description: 'Completed task',
-        created: new Date(1995, 6, 2).getTime(),
-      },
-      {
-        id: 2,
-        type: 'editing',
-        description: 'Editing task',
-        created: new Date(1987, 1, 11).getTime(),
-      },
-      {
-        id: 3,
-        type: 'active',
-        description: 'Active task',
-        created: new Date(1989, 6, 10).getTime(),
-      },
-    ],
-    idCounter: 4,
-    filter: 'all',
-  };
+  constructor() {
+    super();
+    this.state = {
+      taskData: [
+        {
+          id: 1,
+          type: 'completed',
+          description: 'Completed task',
+          created: new Date(1995, 6, 2).getTime(),
+        },
+        {
+          id: 2,
+          type: 'editing',
+          description: 'Editing task',
+          created: new Date(1987, 1, 11).getTime(),
+        },
+        {
+          id: 3,
+          type: 'active',
+          description: 'Active task',
+          created: new Date(1989, 6, 10).getTime(),
+        },
+      ],
+      idCounter: 4,
+      filter: 'all',
+    };
+  }
 
   increaseIdCounter = () => {
+    const { idCounter } = this.state;
     this.setState(() => {
-      let newIdCounter = this.state.idCounter;
-      newIdCounter++;
+      let newIdCounter = idCounter;
+      newIdCounter += 1;
 
       return {
         idCounter: newIdCounter,
@@ -44,10 +48,11 @@ export default class App extends Component {
   };
 
   createTodoItem = (label) => {
+    const { idCounter } = this.state;
     this.increaseIdCounter();
 
     return {
-      id: this.state.idCounter,
+      id: idCounter,
       type: 'active',
       description: label,
       created: new Date().getTime(),
@@ -135,11 +140,7 @@ export default class App extends Component {
           <NewTaskForm onItemAdded={this.addItem} />
         </header>
         <section className="main">
-          <TaskList
-            visibleTasks={visibleTasks}
-            onDoneTask={this.markTaskDone}
-            onDeleteTask={this.deleteTask}
-          />
+          <TaskList visibleTasks={visibleTasks} onDoneTask={this.markTaskDone} onDeleteTask={this.deleteTask} />
           <Footer
             onDeleteAllTasks={this.deleteAllTasks}
             tasks={taskData}
