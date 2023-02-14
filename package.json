@@ -20,7 +20,9 @@
     "eject": "react-scripts eject",
     "prettier": "prettier ./src --write",
     "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix"
+    "lint:fix": "eslint ./src --fix",
+    "prepare": "husky install",
+    "scriptname": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -63,7 +65,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
-    "lint-staged": "^13.1.2",
     "prettier": "^2.8.4"
   }
 }
