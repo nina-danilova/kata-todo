@@ -28,8 +28,16 @@
       "react-app/jest"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
-    "./src/**/*.js": "npm run lint:fix"
+    "*.js": [
+      "npm run lint:write", 
+      "git add"
+    ]
   },
   "browserslist": {
     "production": [

@@ -18,16 +18,12 @@ export default class Task extends Component {
       description, created, onDoneTask, onDeleteTask, type,
     } = this.props;
 
-    const timeDistance = formatDistanceToNow(   created, { 
-      
-      
-      includeSeconds: true 
-    
-    
-    })
+    const timeDistance = formatDistanceToNow(created, {
+      includeSeconds: true,
+    });
 
     let checked;
-    if (    type === 'completed'    ) {checked = true;};
+    if (type === 'completed') { checked = true; }
 
     return (
       <>
