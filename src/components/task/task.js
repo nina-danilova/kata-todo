@@ -10,7 +10,7 @@ export default class Task extends Component {
     created: PropTypes.number.isRequired,
     onDoneTask: PropTypes.func.isRequired,
     onDeleteTask: PropTypes.func.isRequired,
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
   };
 
   render() {
@@ -21,9 +21,7 @@ export default class Task extends Component {
     const timeDistance = formatDistanceToNow(created, { includeSeconds: true });
 
     let checked;
-    if (type === 'completed') {
-      checked = true;
-    }
+    if (    type === 'completed'    ) {checked = true;};
 
     return (
       <>

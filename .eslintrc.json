@@ -29,5 +29,6 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "max-len": ["error", 150, { "ignoreUrls": true }]
     }
 }
