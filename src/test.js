@@ -1,2 +1,2 @@
-var y;
+var v;
 console.log(1)
