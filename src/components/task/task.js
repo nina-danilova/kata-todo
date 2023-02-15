@@ -1,40 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
 
 import './task.css';
 
-export default class Task extends Component {
-  render() {
-    const { description, created, onDoneTask, onDeleteTask, type } = this.props;
+function Task({ id, description, created, onDoneTask, onDeleteTask, type }) {
+  const timeDistance = formatDistanceToNow(created, {
+    includeSeconds: true,
+  });
 
-    const timeDistance = formatDistanceToNow(created, {
-      includeSeconds: true,
-    });
+  const editLabel = `${id}-edit-task`;
+  const deleteLabel = `delete task ${id}`;
 
-    let checked;
-    if (type === 'completed') {
-      checked = true;
-    }
-
-    return (
-      <>
-        <div className="view">
-          <input id="toggle-done" className="toggle" type="checkbox" onClick={onDoneTask} defaultChecked={checked} />
-          <label htmlFor="toggle-done">
-            <span className="description">{description}</span>
-            <span className="created">{`created ${timeDistance} ago`}</span>
-          </label>
-          <button type="button" className="icon icon-edit" />
-          <button type="button" className="icon icon-destroy" onClick={onDeleteTask} />
-        </div>
-        <input id="editing-task" type="text" className="edit" placeholder="Editing task" />
-        <label htmlFor="editing-task" className="visually-hidden">
-          Editing task
-        </label>
-      </>
-    );
+  let checked;
+  if (type === 'completed') {
+    checked = true;
   }
+
+  return (
+    <>
+      <div className="view">
+        <input id="toggle-done" className="toggle" type="checkbox" onClick={onDoneTask} defaultChecked={checked} />
+        <label htmlFor="toggle-done">
+          <span className="description">{description}</span>
+          <span className="created">{`created ${timeDistance} ago`}</span>
+        </label>
+        <button type="button" className="icon icon-edit" aria-label={editLabel} />
+        <button type="button" className="icon icon-destroy" onClick={onDeleteTask} aria-label={deleteLabel} />
+      </div>
+      <input id="editing-task" type="text" className="edit" placeholder="Editing task" aria-label="Editing task" />
+    </>
+  );
 }
 
 Task.propTypes = {
@@ -44,3 +40,5 @@ Task.propTypes = {
   onDeleteTask: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 };
+
+export default Task;

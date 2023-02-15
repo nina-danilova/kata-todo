@@ -6,6 +6,19 @@ import TaskList from '../task-list';
 
 import './app.css';
 
+const filterData = (tasks, filterName) => {
+  switch (filterName) {
+    case 'all':
+      return tasks;
+    case 'active':
+      return tasks.filter((task) => task.type !== 'completed');
+    case 'completed':
+      return tasks.filter((task) => task.type === 'completed');
+    default:
+      return tasks;
+  }
+};
+
 export default class App extends Component {
   constructor() {
     super();
@@ -33,6 +46,7 @@ export default class App extends Component {
       idCounter: 4,
       filter: 'all',
     };
+    this.filterData = filterData.bind(this);
   }
 
   increaseIdCounter = () => {
@@ -116,22 +130,9 @@ export default class App extends Component {
     this.setState({ filter });
   };
 
-  filter = (tasks, filter) => {
-    switch (filter) {
-      case 'all':
-        return tasks;
-      case 'active':
-        return tasks.filter((task) => task.type !== 'completed');
-      case 'completed':
-        return tasks.filter((task) => task.type === 'completed');
-      default:
-        return tasks;
-    }
-  };
-
   render() {
     const { taskData, filter } = this.state;
-    const visibleTasks = this.filter(taskData, filter);
+    const visibleTasks = this.filterData(taskData, filter);
 
     return (
       <section className="app">

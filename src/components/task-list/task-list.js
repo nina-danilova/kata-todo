@@ -1,25 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Task from '../task';
 
 import './task-list.css';
 
-export default class TaskList extends Component {
-  render() {
-    const { visibleTasks, onDoneTask, onDeleteTask } = this.props;
-    const taskList = visibleTasks.map((task) => {
-      const { id, type, ...props } = task;
+function TaskList({ visibleTasks, onDoneTask, onDeleteTask }) {
+  const taskList = visibleTasks.map((task) => {
+    const { id, type, description, created } = task;
 
-      return (
-        <li className={type} key={id}>
-          <Task {...props} onDoneTask={() => onDoneTask(id)} onDeleteTask={() => onDeleteTask(id)} type={type} />
-        </li>
-      );
-    });
+    return (
+      <li className={type} key={id}>
+        <Task
+          id={id}
+          description={description}
+          created={created}
+          onDoneTask={() => onDoneTask(id)}
+          onDeleteTask={() => onDeleteTask(id)}
+          type={type}
+        />
+      </li>
+    );
+  });
 
-    return <ul className="task-list">{taskList}</ul>;
-  }
+  return <ul className="task-list">{taskList}</ul>;
 }
 
 TaskList.defaultProps = {
@@ -34,7 +38,16 @@ TaskList.defaultProps = {
 };
 
 TaskList.propTypes = {
-  visibleTasks: PropTypes.arrayOf(PropTypes.object),
+  visibleTasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      type: PropTypes.string,
+      description: PropTypes.string,
+      created: PropTypes.instanceOf(Date),
+    })
+  ),
   onDoneTask: PropTypes.func.isRequired,
   onDeleteTask: PropTypes.func.isRequired,
 };
+
+export default TaskList;

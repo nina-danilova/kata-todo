@@ -1,26 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import TasksFilter from '../tasks-filter';
 
 import './footer.css';
 
-export default class Footer extends Component {
-  render() {
-    const { onDeleteAllTasks, tasks, filter, onFilterChange } = this.props;
+function Footer({ onDeleteAllTasks, tasks, filter, onFilterChange }) {
+  const todoCount = tasks.filter((task) => task.type !== 'completed').length;
 
-    const todoCount = tasks.filter((task) => task.type !== 'completed').length;
-
-    return (
-      <footer className="footer">
-        <span className="todo-count">{todoCount} items left</span>
-        <TasksFilter filter={filter} onFilterChange={onFilterChange} />
-        <button className="clear-completed" type="button" onClick={onDeleteAllTasks}>
-          Clear completed
-        </button>
-      </footer>
-    );
-  }
+  return (
+    <footer className="footer">
+      <span className="todo-count">{todoCount} items left</span>
+      <TasksFilter filter={filter} onFilterChange={onFilterChange} />
+      <button className="clear-completed" type="button" onClick={onDeleteAllTasks}>
+        Clear completed
+      </button>
+    </footer>
+  );
 }
 
 Footer.defaultProps = {
@@ -30,7 +26,16 @@ Footer.defaultProps = {
 
 Footer.propTypes = {
   onDeleteAllTasks: PropTypes.func.isRequired,
-  tasks: PropTypes.arrayOf(PropTypes.object),
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      type: PropTypes.string,
+      description: PropTypes.string,
+      created: PropTypes.instanceOf(Date),
+    })
+  ),
   filter: PropTypes.string,
   onFilterChange: PropTypes.func.isRequired,
 };
+
+export default Footer;
