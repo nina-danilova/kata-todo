@@ -1,13 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import taskTypes from '../../utilitary/constants';
 import Task from '../task';
 
 import './task-list.css';
 
-function TaskList({ visibleTasks, onDoneTask, onDeleteTask }) {
+function TaskList({ visibleTasks = [{}], onDoneTask, onDeleteTask }) {
   const taskList = visibleTasks.map((task) => {
-    const { id, type, description, created } = task;
+    const {
+      id = 1,
+      type = taskTypes.completed,
+      description = 'Создайте задачу, отредакировав этот текст',
+      created = new Date().getTime(),
+    } = task;
 
     return (
       <li className={type} key={id}>
@@ -26,17 +32,6 @@ function TaskList({ visibleTasks, onDoneTask, onDeleteTask }) {
   return <ul className="task-list">{taskList}</ul>;
 }
 
-TaskList.defaultProps = {
-  visibleTasks: [
-    {
-      id: 1,
-      type: 'active',
-      description: 'Создайте задачу, отредакировав этот текст',
-      created: new Date(null).getTime(),
-    },
-  ],
-};
-
 TaskList.propTypes = {
   visibleTasks: PropTypes.arrayOf(
     PropTypes.shape({
@@ -45,7 +40,7 @@ TaskList.propTypes = {
       description: PropTypes.string,
       created: PropTypes.number,
     })
-  ),
+  ).isRequired,
   onDoneTask: PropTypes.func.isRequired,
   onDeleteTask: PropTypes.func.isRequired,
 };

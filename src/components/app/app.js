@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Footer from '../footer';
 import NewTaskForm from '../new-task-form';
 import TaskList from '../task-list';
+import taskTypes from '../../utilitary/constants';
 
 import './app.css';
 
@@ -26,19 +27,19 @@ export default class App extends Component {
       taskData: [
         {
           id: 1,
-          type: 'completed',
+          type: taskTypes.completed,
           description: 'Completed task',
           created: new Date(1995, 6, 2).getTime(),
         },
         {
           id: 2,
-          type: 'editing',
+          type: taskTypes.editing,
           description: 'Editing task',
           created: new Date(1987, 1, 11).getTime(),
         },
         {
           id: 3,
-          type: 'active',
+          type: taskTypes.active,
           description: 'Active task',
           created: new Date(1989, 6, 10).getTime(),
         },
@@ -67,7 +68,7 @@ export default class App extends Component {
 
     return {
       id: idCounter,
-      type: 'active',
+      type: taskTypes.active,
       description: label,
       created: new Date().getTime(),
     };
@@ -90,10 +91,10 @@ export default class App extends Component {
       const index = taskData.findIndex((el) => el.id === id);
       const newTaskData = taskData.slice(0);
 
-      if (newTaskData[index].type === 'active') {
-        newTaskData[index].type = 'completed';
+      if (newTaskData[index].type === taskTypes.active) {
+        newTaskData[index].type = taskTypes.completed;
       } else {
-        newTaskData[index].type = 'active';
+        newTaskData[index].type = taskTypes.active;
       }
 
       return {
@@ -119,7 +120,7 @@ export default class App extends Component {
   deleteCompleteTasks = () => {
     this.setState(() => {
       const { taskData } = this.state;
-      const activeTasks = this.filterData(taskData, 'active');
+      const activeTasks = this.filterData(taskData, taskTypes.active);
 
       return {
         taskData: activeTasks,
@@ -142,7 +143,12 @@ export default class App extends Component {
           <NewTaskForm onItemAdded={this.addItem} />
         </header>
         <section className="main">
-          <TaskList visibleTasks={visibleTasks} onDoneTask={this.markTaskDone} onDeleteTask={this.deleteTask} />
+          <TaskList
+            visibleTasks={visibleTasks}
+            onDoneTask={this.markTaskDone}
+            onDeleteTask={this.deleteTask}
+            taskTypes={this.taskTypes}
+          />
           <Footer
             onDeleteCompleteTasks={this.deleteCompleteTasks}
             tasks={taskData}

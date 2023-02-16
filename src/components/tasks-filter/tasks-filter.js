@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import './tasks-filter.css';
 
@@ -23,12 +24,13 @@ export default class TasksFilter extends Component {
     const { filter, onFilterChange } = this.props;
 
     const filterTabs = this.filters.map(({ name, label }) => {
-      const isSelected = filter === name; /* вернет true для подходящей кнопки */
-      const selectedClass = isSelected ? ' selected' : '';
+      const selClass = classNames({
+        selected: filter === name,
+      });
 
       return (
         <li key={name}>
-          <button className={selectedClass} type="button" onClick={() => onFilterChange(name)}>
+          <button className={selClass} type="button" onClick={() => onFilterChange(name)}>
             {label}
           </button>
         </li>
