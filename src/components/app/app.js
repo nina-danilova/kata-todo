@@ -90,7 +90,7 @@ export default class App extends Component {
       const index = taskData.findIndex((el) => el.id === id);
       const newTaskData = taskData.slice(0);
 
-      if (newTaskData[index].type !== 'completed') {
+      if (newTaskData[index].type === 'active') {
         newTaskData[index].type = 'completed';
       } else {
         newTaskData[index].type = 'active';
@@ -116,12 +116,13 @@ export default class App extends Component {
     });
   };
 
-  deleteAllTasks = () => {
+  deleteCompleteTasks = () => {
     this.setState(() => {
-      const emptyData = [];
+      const { taskData } = this.state;
+      const activeTasks = this.filterData(taskData, 'active');
 
       return {
-        taskData: emptyData,
+        taskData: activeTasks,
       };
     });
   };
@@ -143,7 +144,7 @@ export default class App extends Component {
         <section className="main">
           <TaskList visibleTasks={visibleTasks} onDoneTask={this.markTaskDone} onDeleteTask={this.deleteTask} />
           <Footer
-            onDeleteAllTasks={this.deleteAllTasks}
+            onDeleteCompleteTasks={this.deleteCompleteTasks}
             tasks={taskData}
             filter={filter}
             onFilterChange={this.onFilterChange}

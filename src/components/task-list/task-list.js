@@ -43,7 +43,7 @@ TaskList.propTypes = {
       id: PropTypes.number,
       type: PropTypes.string,
       description: PropTypes.string,
-      created: PropTypes.instanceOf(Date),
+      created: PropTypes.number,
     })
   ),
   onDoneTask: PropTypes.func.isRequired,
